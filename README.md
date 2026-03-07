@@ -148,8 +148,8 @@
 * 단순 상관관계 위주로 두 품목 간의 피어슨 상관계수가 0.35 이상인 쌍을 찾고, 후행 품목당 상위 3개의 선행 품목만 단순 매칭 시도
  
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/ac3f8627-5ad8-4f8a-bf33-15061a5c26d1" alt="이미지 1" height="250" style="margin-right: 10px;">
-  <img src="https://github.com/user-attachments/assets/6b00126a-be47-4c4d-9b8a-e1f720f6bd43" alt="이미지 2" height="250" style="margin-left: 10px;">
+  <img src="https://github.com/user-attachments/assets/ac3f8627-5ad8-4f8a-bf33-15061a5c26d1" alt="예선전 이미지 1" width="48%" style="margin-right: 1%;">
+  <img src="https://github.com/user-attachments/assets/6b00126a-be47-4c4d-9b8a-e1f720f6bd43" alt="예선전 이미지 2" width="48%">
 </div>
 
 **본선전** 
@@ -159,11 +159,61 @@
 * 상관계수 * 데이터수 제곱근 * 인과성 가산점(bonus)을 결합한 자체 Score 체계를 구축하여 신뢰도 높은 페어만 추출
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/e1d7e724-9d9f-4df3-a6eb-6c5e1c273378" alt="이미지 1" height="250" style="margin-right: 10px;">
-  <img src="https://github.com/user-attachments/assets/f10628d5-0203-4cfc-8d8e-1facc031e9cc" alt="이미지 2" height="250" style="margin-left: 10px;">
+  <img src="https://github.com/user-attachments/assets/e1d7e724-9d9f-4df3-a6eb-6c5e1c273378" alt="본선전 이미지 1" height="250" style="margin-right: 10px;">
+  <img src="https://github.com/user-attachments/assets/f10628d5-0203-4cfc-8d8e-1facc031e9cc" alt="본선전 이미지 2" height="250" style="margin-left: 10px;">
 </div>
 
+## 3️⃣파생 변수(Feature Engineering)의 심화 및 확장
 
+**예선전**
+
+* 과거 값(lag), 전월 대비 변화량(delta), 3/6개월 이동평균(MA) 등 기초적인 시계열 피처 생성
+
+* **본선전**
+
+* 개별 품목 중심(11,356행 x 9열)의 원본 데이터를 선행-후행 쌍 중심(47,897행 x 44열)으로 폭발적으로 확장
+
+* **주기성** : 월(Month) 데이터를 sin, cos 함수로 변환하여 계절성을 딥러닝이 인식하기 쉽게 처리
+
+* **변동성 및 모멘텀** : 6개월 표준편차(b_std6), 지수이동평균(bema), 전년 동기 대비 변화율(yoy_change), 연속 증가 횟수 등 고차원 통계 지표 추가
+
+---
+
+# 예선 & 본석 모델 설명
+
+## 1️⃣ 사용 알고리즘
+
+**⭐ 예선전 (LightGBM)**
+
+**장점**
+
+* **압도적인 효율성** : 정형 데이터 처리에 특화되어 있어 학습 및 추론 속도가 매우 빠르고 연산 자원 소모가 적음
+
+* **안정성** : 결측치나 이상치에 상대적으로 강건하며, Optuna를 활용한 하이퍼파라미터 튜닝이 직관적이고 빠르게 수렴
+
+**단점** 
+
+* **복잡한 패턴 인식 한계** : 트리 모델 특성상, 수많은 변수들이 서로 복잡하게 얽혀서 만들어내는 상호작용이나 숨겨진 비선형적 관계를 깊게 파악하는 데에는 구조적 한계가 존재
+
+**⭐ 본선전 (FT-Transformer + LightGBM 하이브리드 모델)**
+
+**장점** 
+
+* **상호 보완적 시너지 창출** :  딥러닝의 '어텐션 메커니즘을 통한 복잡한 변수 간 관계 파악 능력'과 머신러닝의 '계층적 패턴 추출 능력'을 결합하여 예측의 사각지대를 최소화
+
+* **정형 데이터의 토큰화** : 각 컬럼을 독립적인 토큰으로 취급하여, 기존 머신러닝이 잡아내지 못하는 변수 간의 문맥적 의미를 학습
+
+* **예측 분산 감소 (3-Seed Ensemble)** : 딥러닝은 초기 가중치에 따라 결과가 달라지는 불안정성이 있음. 3개의 다른 시드로 학습 후 평균을 내어 모델의 일반화 성능을 극대화하고 과적합 방지
+
+* **스마트 필터링** : 전처리 단계에서 정의한 '쌍의 신뢰도'를 척도로 사용하여, 애초에 근거가 부족한 데이터(하위 5%)의 예측을 배제함으로써 전체 평가 지표가 무너지는 것을 방어
+
+**단점** 
+
+* **리소스 및 시간 소모** : 딥러닝 모델의 도입으로 인해 학습 시간 및 추론 시간이 단일 모델 대비 기하급수적으로 증가
+
+* **전처리 의존도 상승** : 딥러닝은 데이터 스케일링에 매우 민감하므로(Quantile Transformer 필수), 데이터 파이프라인이 복잡
+
+* **스마트 필터링 대체 로직 필요** : 하위 5%의 예측값을 제외한 후, 해당 품목들에 대해 어떤 값으로 결측을 채워 넣을지에 대한 확실한 Fallback 로직이 추가 요구구
 
 
 
