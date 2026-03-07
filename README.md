@@ -1,4 +1,4 @@
-# kmu-ai-bigdata-competition
+<img width="1316" height="508" alt="image" src="https://github.com/user-attachments/assets/72ab7692-0c7c-433f-912b-1b7bbcbc8028" /># kmu-ai-bigdata-competition
 # 📈 무역 품목 간 공행성 쌍 판별 및 무역량 예측 AI 모델
 
 [DACON] 제3회 국민대학교 AI빅데이터 분석 경진대회 
@@ -47,11 +47,10 @@
 ## 1️⃣ 데이터 개요 
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/8357b146-5e64-4019-bd13-637504c90876" alt="데이터 이미지 1" height="280" style="margin-right: 10px;">
-  <img src="https://github.com/user-attachments/assets/9cb1ea44-3631-4b69-96e4-9f0feecd9752" alt="데이터 이미지 2" height="280" style="margin-right: 10px;">
-  <img src="https://github.com/user-attachments/assets/bd12fb70-4808-421c-879a-217a4d038bed" alt="데이터 이미지 3" height="280">
+  <img src="https://github.com/user-attachments/assets/8357b146-5e64-4019-bd13-637504c90876" alt="이미지 1" width="32%" height="300" style="object-fit: cover; margin-right: 1%;">
+  <img src="https://github.com/user-attachments/assets/9cb1ea44-3631-4b69-96e4-9f0feecd9752" alt="이미지 2" width="32%" height="300" style="object-fit: cover; margin-right: 1%;">
+  <img src="https://github.com/user-attachments/assets/bd12fb70-4808-421c-879a-217a4d038bed" alt="이미지 3" width="32%" height="300" style="object-fit: cover;">
 </div>
-
 
 
 
