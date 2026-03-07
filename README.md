@@ -147,8 +147,8 @@
 
 * 단순 상관관계 위주로 두 품목 간의 피어슨 상관계수가 0.35 이상인 쌍을 찾고, 후행 품목당 상위 3개의 선행 품목만 단순 매칭 시도
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/ac3f8627-5ad8-4f8a-bf33-15061a5c26d1" alt="이미지 1" width="500" height="400" style="margin-left: 10px;">
-  <img src="https://github.com/user-attachments/assets/6b00126a-be47-4c4d-9b8a-e1f720f6bd43" alt="이미지 2" width="500" height="400" style="margin-left: 10px;">
+  <img src="https://github.com/user-attachments/assets/ac3f8627-5ad8-4f8a-bf33-15061a5c26d1" alt="이미지 1" width="500" height="250" style="margin-left: 10px;">
+  <img src="https://github.com/user-attachments/assets/6b00126a-be47-4c4d-9b8a-e1f720f6bd43" alt="이미지 2" width="500" height="250" style="margin-left: 10px;">
 </div>
 
 **본선전** 
