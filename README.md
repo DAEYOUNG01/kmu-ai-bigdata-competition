@@ -21,7 +21,7 @@
 
 * **핵심 알고리즘 : 공행성 쌍 탐색 및 전처리**
 
-* **예선 & 본석 모델 설명**
+* **예선 & 본선 모델 설명**
 
 * **대회를 통한 느낀점** 
 
@@ -85,7 +85,7 @@
 
 ### 💡 무게 분포
 
-* 무계 또한 편차가 극심함을 발견
+* 무게 또한 편차가 극심함을 발견
 
 * Log 변환을 통한 정규화 진행 (필수)
 <div align="center">
@@ -137,7 +137,7 @@
 
 * **본선전** : value, weight, hs4, cnt
 
-| 예선전 전처리 | 본선전 천처리 |
+| 예선전 전처리 | 본선전 전처리 |
 |---------|---------|
 | <img src="https://github.com/user-attachments/assets/d94d44c7-115a-4acd-b2c8-6342285e0e55" width="550" height="420" /> | <img src="https://github.com/user-attachments/assets/61985e3e-6cbf-4e7b-9c11-e5e74d73b08c" width="550" height="420" /> |
 
